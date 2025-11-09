@@ -1,0 +1,114 @@
+:root {
+  --brand: #0d6efd;
+  --muted: #6c757d;
+  --surface: #ffffff;
+}
+
+html, body {
+  height: 100% !important;
+  margin: 0;
+}
+
+/* FORZA il gradient su tutte le pagine */
+body {
+  background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+  color: #222 !important;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navbar slightly translucent so gradient shows through */
+.navbar {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Keep main/container transparent so gradient remains visible */
+main,
+.container {
+  background: transparent !important;
+}
+
+/* Intro box: semi-transparent for readability */
+.intro-box {
+  background: rgba(255, 255, 255, 0.82) !important;
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+/* Cards and product cards stay white for legibility */
+.card,
+.product-card,
+#leftSidebar .card {
+  background: var(--surface) !important;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Offcanvas should be readable */
+.offcanvas {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Footer translucent */
+footer {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Other UI tweaks */
+.product-card img {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-card {
+  overflow: hidden;
+}
+
+.price {
+  font-weight: 700;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+/* Responsive hero padding */
+@media (min-width: 992px) {
+  .hero {
+    padding: 6rem 0;
+  }
+}
+
+/* ✅ Navbar orizzontale già da 700px (come desktop) */
+@media (min-width: 700px) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto !important;
+    justify-content: flex-end !important;
+  }
+
+  .navbar-expand-lg .navbar-nav {
+    flex-direction: row !important;
+    gap: 1.25rem;
+  }
+
+  .navbar-expand-lg .nav-link {
+    padding: 0.5rem 0 !important;
+  }
+
+  .navbar-expand-lg .navbar-toggler {
+    display: none !important;
+  }
+}
+
+

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShopEasy — Chi siamo</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--NAVBAR-->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <div class="d-flex align-items-center gap-2">
+        <button id="catToggleBtn" class="btn btn-outline-primary p-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCategories" aria-controls="offcanvasCategories" title="Categorie" style="width:40px;height:40px">
+          <i class="bi bi-list"></i>
+        </button>
+        <a class="navbar-brand fw-bold mb-0 ms-1 text-dark" href="index.html">ShopEasy</a>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsMain">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a id="nav-home" class="nav-link text-dark" href="index.html">Home</a></li>
+          <li class="nav-item"><a id="nav-shop" class="nav-link text-dark" href="prodotti.html">Prodotti</a></li>
+          <li class="nav-item"><a id="nav-about" class="nav-link text-dark" href="chi-siamo.html">Chi siamo</a></li>
+        </ul>
+
+        <button class="btn btn-outline-primary position-relative" id="cartButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+          <i class="bi bi-bag"></i>
+          <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <h2 class="fw-bold mb-3">Chi siamo</h2>
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <p class="lead">Siamo ShopLite: un piccolo team dedicato a creare capi e accessori che uniscono stile, comfort e sostenibilità. Ci concentriamo su prodotti durevoli, realizzati con materiali selezionati e processi produttivi responsabili.</p>
+        <h5>Materiali selezionati</h5>
+        <p class="text-muted">Usiamo principalmente cotone organico e materiali riciclati per ridurre l'impatto ambientale. I tessuti sono testati per durata e comfort: vogliamo che un capo resti nel tuo guardaroba a lungo.</p>
+      </div>
+      <div class="col-lg-4">
+        <!--uso .card per mantenere leggibilità ma lasciare il background generale-->
+        <div class="card p-3">
+          <h6>I nostri valori</h6>
+          <ul class="small text-muted">
+            <li>Qualità e durabilità</li>
+            <li>Trasparenza nella filiera</li>
+            <li>Scelte sostenibili</li>
+            <li>Design funzionale</li>
+          </ul>
+          <img src="https://images.unsplash.com/photo-1520975912525-7b4ff9f2b8b7?q=80&w=800&auto=format&fit=crop" class="img-fluid rounded" alt="">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!--Offcanvas (stesso comportamento)-->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCategories" aria-labelledby="offcanvasCategoriesLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasCategoriesLabel">Categorie</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul id="offcanvasCategoryList" class="list-group list-group-flush"></ul>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Carrello</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <ul id="cartList" class="list-group list-group-flush mb-3 small"></ul>
+      <div class="mt-auto">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="fw-semibold">Subtotale</span>
+          <span id="cartSubtotal" class="fs-5 fw-bold">€0,00</span>
+        </div>
+        <button class="btn btn-dark w-100" id="checkoutBtn" disabled>Procedi al checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!--FOOTER-->
+  <footer class="border-top py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <small class="text-muted">© <span id="year"></span> ShopEasy</small>
+      <small class="text-muted">Copyright — nessun pagamento reale</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="app.js"></script>
+</body>
+</html>
+
+
