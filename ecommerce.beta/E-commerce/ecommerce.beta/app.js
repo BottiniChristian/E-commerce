@@ -1,54 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ==========================
-     DATI PRODOTTO
-  ========================== */
   const PRODUCTS = [
-    { id: 1, name: "Borsa", price: 19.99, category: "Borse",
-      img: "imgs/image_4952d297-f84f-4cd0-afe5-44afbe4cb8e1.jpeg",
+    { id: 1, name: "Maglietta Basic", price: 19.99, category: "Magliette",
+      img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop",
       colors: [{code:'#ffffff', name:'Bianco'},{code:'#000000', name:'Nero'},{code:'#e63946', name:'Rosso'}],
-      description: "Borsa in cotone 100% biologico, taglio regolare. Morbida al tatto e resistente ai lavaggi." },
+      description: "Maglietta in cotone 100% biologico, taglio regolare. Morbida al tatto e resistente ai lavaggi." },
 
-    { id: 2, name: "Borsa Logo", price: 24.99, category: "Borse",
-      img: "imgs/image_4952d297-f84f-4cd0-afe5-44afbe4cb8e1.jpeg",
+    { id: 2, name: "Maglietta Logo", price: 24.99, category: "Magliette",
+      img: "https://images.unsplash.com/photo-1537832816519-689ad163238b?q=80&w=1200&auto=format&fit=crop",
       colors: [{code:'#2b2d42', name:'Antracite'},{code:'#f8f9fa', name:'Grigio chiaro'}],
-      description: "Borsa con logo stampato, stampa water-based, tessuto a maglia fine." },
+      description: "Maglietta con logo stampato, stampa water-based, tessuto a maglia fine." },
 
     { id: 3, name: "Cappello Estivo", price: 14.99, category: "Cappelli",
-      img : "imgs/NRATSTFV_01.jpeg",
+      img: "https://images.unsplash.com/photo-1528701800489-20be5f2c8d49?q=80&w=1200&auto=format&fit=crop",
       colors: [{code:'#f1faee', name:'Crema'},{code:'#2a9d8f', name:'Teal'}],
       description: "Cappello leggero, ideale per l'estate. Regolabile e traspirante." },
 
     { id: 4, name: "Zaino Tech", price: 49.99, category: "Accessori",
-      img: "imgs/930064_247897_1.jpeg",
+      img: "https://images.unsplash.com/photo-1556742043-3c52d6e88c62?q=80&w=1200&auto=format&fit=crop",
       colors: [{code:'#1b1f3b', name:'Notte'},{code:'#6c757d', name:'Grigio'}],
       description: "Zaino con scomparto laptop, tasche multiple e tessuto idrorepellente." },
 
     { id: 5, name: "Tazza Termica", price: 12.50, category: "Accessori",
-      img: "imgs/manico-per-borsa-ad-anello-tipo-catena-oro-misura-10x9-cm.jpg",
+      img: "https://images.unsplash.com/photo-1528806635741-2e7b2fb0c9d4?q=80&w=1200&auto=format&fit=crop",
       colors: [{code:'#ffffff', name:'Bianco'},{code:'#000000', name:'Nero'}],
       description: "Tazza termica con doppia parete, mantiene la temperatura ed è anti-scottatura." }
   ];
 
   /* ==========================
-     STATO: carrello (array of items)
-     item = { productId, qty, color }
-  ========================== */
-  let cart = [];
-
-  /* Persistenza cart in localStorage */
+     STATO: carrello (array di items)
+     formato item: { productId, qty, color: {code,name} }
+     ========================== */
+  let cart = []; // inizializziamo vuoto ad ogni reload (come richiesto)
   function saveCart(){ try { localStorage.setItem('cart', JSON.stringify(cart)); } catch(e){} }
-  function loadCart(){ try { const s = localStorage.getItem('cart'); return s ? JSON.parse(s) : []; } catch(e){ return []; } }
 
   /* ==========================
      HELPERS
-  ========================== */
+     ========================== */
   const el = id => document.getElementById(id);
   const fmt = v => new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(v);
 
   /* ==========================
-     CATEGORIES
-  ========================== */
+     RENDER CATEGORIES (sidebar + offcanvas)
+     ========================== */
   function getCategories(){ return ['Tutti', ...Array.from(new Set(PRODUCTS.map(p=>p.category)))]; }
   function renderCategories(){
     const cats = getCategories();
@@ -60,8 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================
-     PRODUCTS GRID
-  ========================== */
+     RENDER LISTA PRODOTTI (prodotti.html)
+     ==========================
+    l'icona "occhio" è un <a href="product.html?id=..."> che apre la pagina dettaglio.
+     Il pulsante "Aggiungi" mantiene data-add per aggiungere direttamente al carrello.
+     ========================== */
   function renderProductsGrid(filterCategory='Tutti'){
     const grid = el('productGrid');
     if (!grid) return;
@@ -92,8 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================
-     FEATURED (home)
-  ========================== */
+     RENDER FEATURED (home)
+     ==========================
+     l'icona "occhio" è un link alla pagina prodotto
+     ========================== */
   function renderFeatured(){
     const f = el('featuredGrid'); if (!f) return;
     const featured = PRODUCTS.slice(0,3);
@@ -117,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================
-     CART
-  ========================== */
+     RENDER CARRELLO (offcanvas)
+     ========================== */
   function cartCount(){ return cart.reduce((sum,i)=>sum + i.qty, 0); }
   function cartSubtotal(){ return cart.reduce((sum,i)=>{
     const p = PRODUCTS.find(x=>x.id==i.productId); return sum + (p ? p.price * i.qty : 0);
@@ -150,11 +149,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     el('cartBadge') && (el('cartBadge').textContent = cartCount());
     el('cartSubtotal') && (el('cartSubtotal').textContent = fmt(cartSubtotal()));
-    saveCart(); //salva ogni volta che renderizzi il carrello
+    saveCart();
   }
 
+  /* ==========================
+     ADD TO CART (considera colore)
+     - se item con stesso productId+color esiste, incrementa qty
+     ========================== */
   function addToCart(productId, qty = 1, color = null){
     const pid = Number(productId);
+    // cerca già esistente con stesso id+color
     const existing = cart.find(i => i.productId === pid && ((i.color && color && i.color.code === color.code) || (!i.color && !color)));
     if (existing) {
       existing.qty += qty;
@@ -163,25 +167,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderCart();
   }
+
   function setCartQty(idx, qty){
     qty = Number(qty) || 0;
     if (qty <= 0) cart.splice(idx, 1);
     else cart[idx].qty = qty;
     renderCart();
   }
-  function removeCartItem(idx){ cart.splice(idx, 1); renderCart(); }
+  function removeCartItem(idx){
+    cart.splice(idx, 1); renderCart();
+  }
 
   /* ==========================
-     PRODUCT DETAIL
-  ========================== */
+     RENDER PRODUCT DETAIL (product.html)
+     ========================== */
   function renderProductDetail(){
-    const detailRoot = el('productDetail'); if (!detailRoot) return;
+    const detailRoot = el('productDetail');
+    if (!detailRoot) return;
+    //read id from querystring
     const params = new URLSearchParams(window.location.search);
     const id = Number(params.get('id'));
-    if (!id) { detailRoot.innerHTML = `<div class="col-12"><div class="alert alert-warning">Prodotto non trovato.</div></div>`; return; }
+    if (!id) {
+      detailRoot.innerHTML = `<div class="col-12"><div class="alert alert-warning">Prodotto non trovato.</div></div>`;
+      return;
+    }
     const p = PRODUCTS.find(x=>x.id===id);
-    if (!p) { detailRoot.innerHTML = `<div class="col-12"><div class="alert alert-warning">Prodotto non trovato.</div></div>`; return; }
+    if (!p) {
+      detailRoot.innerHTML = `<div class="col-12"><div class="alert alert-warning">Prodotto non trovato.</div></div>`;
+      return;
+    }
 
+    //build color options markup
     const colorsHtml = (p.colors || []).map((c, i) => `
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="prodColor" id="color-${i}" value="${i}" ${i===0?'checked':''}>
@@ -191,15 +207,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     detailRoot.innerHTML = `
       <div class="col-lg-6">
-        <div class="card mb-3"><img src="${p.img}" alt="${p.name}" class="img-fluid"></div>
+        <div class="card mb-3">
+          <img src="${p.img}" alt="${p.name}" class="img-fluid">
+        </div>
       </div>
+
       <div class="col-lg-6">
         <h2 class="mb-2">${p.name}</h2>
         <div class="small text-muted mb-3">${p.category}</div>
         <div class="mb-3"><strong class="fs-4">${fmt(p.price)}</strong></div>
         <p class="text-muted">${p.description}</p>
-        <div class="mb-3"><label class="d-block mb-2">Colore</label>${colorsHtml || '<div class="text-muted small">Nessuna opzione colore.</div>'}</div>
-        <div class="mb-3 d-flex align-items-center gap-2"><label class="mb-0">Quantità</label><input id="detailQty" type="number" class="form-control form-control-sm" style="width:80px" min="1" value="1"></div>
+
+        <div class="mb-3">
+          <label class="d-block mb-2">Colore</label>
+          ${colorsHtml || '<div class="text-muted small">Nessuna opzione colore.</div>'}
+        </div>
+
+        <div class="mb-3 d-flex align-items-center gap-2">
+          <label class="mb-0">Quantità</label>
+          <input id="detailQty" type="number" class="form-control form-control-sm" style="width:80px" min="1" value="1">
+        </div>
+
         <div class="d-flex gap-2">
           <button id="btnAddDetail" class="btn btn-primary"><i class="bi bi-bag-plus me-1"></i>Aggiungi al carrello</button>
           <a href="prodotti.html" class="btn btn-outline-secondary">Torna ai prodotti</a>
@@ -207,159 +235,42 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
+    //attach handler for add button
     const btn = el('btnAddDetail');
     if (btn) {
       btn.addEventListener('click', () => {
         const qtyInput = el('detailQty');
-        let qty = Number(qtyInput?.value) || 1; if (qty < 1) qty = 1;
+        let qty = Number(qtyInput?.value) || 1;
+        if (qty < 1) qty = 1;
+        //get selected color
         const checked = document.querySelector('input[name="prodColor"]:checked');
         const colorIndex = checked ? Number(checked.value) : null;
         const color = (colorIndex !== null && p.colors && p.colors[colorIndex]) ? p.colors[colorIndex] : null;
         addToCart(p.id, qty, color);
-        const off = new bootstrap.Offcanvas(document.getElementById('offcanvasCart')); off.show();
+        //feedback rapido: apri carrello offcanvas
+        const off = new bootstrap.Offcanvas(document.getElementById('offcanvasCart'));
+        off.show();
       });
     }
   }
 
   /* ==========================
-     CHECKOUT: render summary + form handling
-  ========================== */
-  function shippingCost(subtotal){
-    if (subtotal >= 80) return 0; //spedizione gratuita oltre 80€
-    if (subtotal === 0) return 0;
-    return 5.90;
-  }
-
-  function renderCheckoutSummary(){
-    const root = el('checkoutSummary'); if (!root) return;
-    if (!cart.length) {
-      root.innerHTML = `<div class="text-center text-muted py-4">Il carrello è vuoto. <a href="prodotti.html">Vai ai prodotti</a></div>`;
-      return;
-    }
-    const itemsHtml = cart.map(it => {
-      const p = PRODUCTS.find(x=>x.id==it.productId);
-      return p ? `<div class="d-flex gap-3 align-items-center mb-3">
-        <img src="${p.img}" width="64" height="64" style="object-fit:cover" class="rounded">
-        <div class="flex-grow-1">
-          <div class="d-flex justify-content-between"><strong>${p.name}</strong><span>${fmt(p.price * it.qty)}</span></div>
-          <div class="small text-muted">Qty: ${it.qty} • Colore: ${it.color ? it.color.name : '-'}</div>
-        </div>
-      </div>` : '';
-    }).join('');
-    const subtotal = cartSubtotal();
-    const ship = shippingCost(subtotal);
-    const total = subtotal + ship;
-    root.innerHTML = `
-      <div>${itemsHtml}</div>
-      <hr>
-      <div class="d-flex justify-content-between"><span>Subtotale</span><strong>${fmt(subtotal)}</strong></div>
-      <div class="d-flex justify-content-between"><span>Spedizione</span><strong>${ship === 0 ? 'Gratis' : fmt(ship)}</strong></div>
-      <hr>
-      <div class="d-flex justify-content-between"><span class="fs-5">Totale</span><strong class="fs-5">${fmt(total)}</strong></div>
-    `;
-  }
-
-  function validateCheckoutForm(){
-    //basic validation for required fields
-    const required = [
-      ['shipName', 'Inserisci il nome'],
-      ['shipEmail', 'Inserisci la email'],
-      ['shipAddress', 'Inserisci l\'indirizzo'],
-      ['shipZip', 'Inserisci il CAP'],
-      ['shipCity', 'Inserisci la città'],
-      ['shipCountry', 'Inserisci la nazione'],
-      ['shipPhone', 'Inserisci il telefono']
-    ];
-    let ok = true;
-    for (const [id, msg] of required){
-      const elField = el(id);
-      if (!elField) continue;
-      if (!elField.value.trim()){ elField.classList.add('is-invalid'); ok = false; }
-      else elField.classList.remove('is-invalid');
-    }
-    //se metodo carta, controlla almeno pattern semplice
-    const payCard = document.querySelector('input[name="payMethod"]:checked')?.value === 'card';
-    if (payCard) {
-      const cnum = el('cardNumber'), cexp = el('cardExp'), ccvc = el('cardCvc');
-      const cardOk = cnum && cnum.value.trim().replace(/\s+/g,'').length >= 12;
-      if (!cardOk) { cnum.classList.add('is-invalid'); ok = false; } else cnum.classList.remove('is-invalid');
-      if (cexp && !/^\d{2}\/\d{2}$/.test(cexp.value)) { cexp.classList.add('is-invalid'); ok = false; } else cexp && cexp.classList.remove('is-invalid');
-      if (ccvc && !/^\d{3,4}$/.test(ccvc.value)) { ccvc.classList.add('is-invalid'); ok = false; } else ccvc && ccvc.classList.remove('is-invalid');
-    }
-    return ok;
-  }
-
-  function placeOrderHandler(ev){
-    ev.preventDefault();
-    if (!cart.length) { alert('Carrello vuoto'); return; }
-    if (!validateCheckoutForm()) { window.scrollTo({top:0, behavior:'smooth'}); return; }
-
-    //raccogli dati
-    const data = {
-      customer: {
-        name: el('shipName').value.trim(),
-        email: el('shipEmail').value.trim(),
-        phone: el('shipPhone').value.trim(),
-        address: el('shipAddress').value.trim(),
-        zip: el('shipZip').value.trim(),
-        city: el('shipCity').value.trim(),
-        country: el('shipCountry').value.trim()
-      },
-      payment: {
-        method: document.querySelector('input[name="payMethod"]:checked')?.value || 'card',
-        card: null
-      },
-      items: cart.slice(),
-      subtotal: cartSubtotal(),
-      shipping: shippingCost(cartSubtotal()),
-      total: cartSubtotal() + shippingCost(cartSubtotal()),
-      createdAt: new Date().toISOString()
-    };
-
-    if (data.payment.method === 'card') {
-      data.payment.card = {
-        number: el('cardNumber').value.replace(/\s+/g,'').slice(-4), //only keep last4 for demo
-        exp: el('cardExp').value
-      };
-    }
-
-    //se utente vuole salvare i dettagli
-    if (el('saveInfo') && el('saveInfo').checked) {
-      try { localStorage.setItem('shop_user', JSON.stringify(data.customer)); } catch(e){}
-    }
-
-    //simulazione invio ordine: salviamo in localStorage "orders" per demo e svuotiamo carrello
-    try {
-      const prev = JSON.parse(localStorage.getItem('orders') || '[]');
-      prev.push(data);
-      localStorage.setItem('orders', JSON.stringify(prev));
-    } catch(e){}
-
-    //mostra conferma (semplice)
-    const summary = el('checkoutSummary');
-    if (summary) {
-      summary.innerHTML = `<div class="text-center py-4">
-        <h5>Ordine ricevuto 🎉</h5>
-        <p class="text-muted">Grazie ${data.customer.name}. Il tuo ordine è stato registrato (demo).</p>
-        <p class="small text-muted">Totale: <strong>${fmt(data.total)}</strong></p>
-        <a class="btn btn-primary" href="index.html">Torna alla home</a>
-      </div>`;
-    }
-
-    //svuota carrello
-    cart = []; saveCart(); renderCart();
-
-    //disabilita pulsante e inputs
-    el('placeOrder') && (el('placeOrder').disabled = true);
-  }
-
-  /* ==========================
-     EVENTI DELEGATI
-  ========================== */
+     EVENT DELEGATION: gestione click generale (aggiungi, detail, cart controls, categorie)
+     ========================== */
   document.body.addEventListener('click', (ev) => {
+    //add from cards / featured
     const add = ev.target.closest('[data-add]');
     if (add) { addToCart(Number(add.getAttribute('data-add')), 1, null); return; }
 
+    //detail buttons on cards
+    const detailBtn = ev.target.closest('[data-detail]');
+    if (detailBtn) {
+      const id = Number(detailBtn.getAttribute('data-detail'));
+      if (id) window.location.href = `product.html?id=${encodeURIComponent(id)}`;
+      return;
+    }
+
+    //cart controls (by index)
     const dec = ev.target.closest('[data-dec]');
     if (dec) { const idx = Number(dec.getAttribute('data-dec')); if (!isNaN(idx)) { const current = cart[idx]?.qty || 1; setCartQty(idx, Math.max(0, current - 1)); } return; }
     const inc = ev.target.closest('[data-inc]');
@@ -367,26 +278,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const rm = ev.target.closest('[data-rm]');
     if (rm) { const idx = Number(rm.getAttribute('data-rm')); if (!isNaN(idx)) removeCartItem(idx); return; }
 
+    //categories
     const catBtn = ev.target.closest('[data-cat]');
     if (catBtn) {
       const cat = catBtn.getAttribute('data-cat');
       if (window.location.pathname.endsWith('prodotti.html')) {
         renderProductsGrid(cat);
       } else {
+        //go to prodotti page with hash param
         window.location.href = `prodotti.html#cat=${encodeURIComponent(cat)}`;
       }
       return;
     }
-
-    //checkout button in offcanvas: indirizza alla pagina checkout
-    const goCheckout = ev.target.closest('#checkoutBtnFromOffcanvas, #checkoutBtn');
-    if (goCheckout) {
-      window.location.href = 'checkout.html';
-      return;
-    }
   });
 
-  //change handlers (quantities & payment method)
+  //cart qty input change
   document.body.addEventListener('change', (ev) => {
     const q = ev.target.closest('[data-qty]');
     if (q) {
@@ -394,35 +300,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const v = Number(q.value) || 1;
       setCartQty(idx, v);
     }
-
-    //show/hide card section based on payment method
-    if (ev.target && ev.target.name === 'payMethod') {
-      const cardSection = el('cardSection');
-      if (cardSection) {
-        cardSection.style.display = (ev.target.value === 'card') ? '' : 'none';
-      }
-    }
-  });
-
-  //checkout form submit
-  document.body.addEventListener('submit', (ev) => {
-    if (ev.target && ev.target.id === 'checkoutForm') {
-      placeOrderHandler(ev);
-    }
   });
 
   /* ==========================
-     INIT
-  ========================== */
+     INIZIALIZZAZIONE
+     ========================== */
   renderCategories();
   renderFeatured();
   renderProductsGrid();
-
-  //CARRELLO: load dal localStorage (persistente)
-  cart = loadCart();
   renderCart();
 
-  //if on prodotti page apply hash filter
+  //se siamo su prodotti.html e c'è hash cat=.., applica filtro
   if (window.location.pathname.endsWith('prodotti.html')) {
     const hash = (window.location.hash || '').replace('#','');
     if (hash.startsWith('cat=')) {
@@ -431,41 +319,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  //if on product page render detail
+  //se siamo su product.html -> render dettaglio
   if (window.location.pathname.endsWith('product.html')) {
     renderProductDetail();
   }
 
-  //if on checkout page, render summary and try to prefill user data
-  if (window.location.pathname.endsWith('checkout.html')) {
-    //cart already loaded above
-    renderCheckoutSummary();
-
-    //prefill saved customer if any
-    try {
-      const saved = JSON.parse(localStorage.getItem('shop_user') || 'null');
-      if (saved) {
-        el('shipName') && (el('shipName').value = saved.name || '');
-        el('shipEmail') && (el('shipEmail').value = saved.email || '');
-        el('shipPhone') && (el('shipPhone').value = saved.phone || '');
-        el('shipAddress') && (el('shipAddress').value = saved.address || '');
-        el('shipZip') && (el('shipZip').value = saved.zip || '');
-        el('shipCity') && (el('shipCity').value = saved.city || '');
-        el('shipCountry') && (el('shipCountry').value = saved.country || '');
-      }
-    } catch(e){}
-  }
-
-  //nav highlight
+  //evidenzia nav corrente (base sul path)
   const path = window.location.pathname;
   if (path.endsWith('index.html') || path.endsWith('/')) document.getElementById('nav-home')?.classList.add('active');
   else if (path.endsWith('prodotti.html')) document.getElementById('nav-shop')?.classList.add('active');
   else if (path.endsWith('chi-siamo.html')) document.getElementById('nav-about')?.classList.add('active');
 
-  //set year
+  //set footer year
   if (el('year')) el('year').textContent = new Date().getFullYear();
 
-}); 
+  //ensure cart empty on load (per la tua richiesta precedente)
+  cart = []; saveCart(); renderCart();
 
+});
 
 

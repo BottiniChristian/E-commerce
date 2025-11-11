@@ -9,7 +9,7 @@ html, body {
   margin: 0;
 }
 
-/*Forza il gradient su tutte le pagine*/
+/* FORZA il gradient su tutte le pagine */
 body {
   background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%) !important;
   background-attachment: fixed !important;
@@ -22,20 +22,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/*Navbar slightly translucent so gradient shows through*/
+/* Navbar slightly translucent so gradient shows through */
 .navbar {
   background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(4px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-/*Keep main/container transparent so gradient remains visible*/
+/* Keep main/container transparent so gradient remains visible */
 main,
 .container {
   background: transparent !important;
 }
 
-/*Intro box: semi-transparent for readability*/
+/* Intro box: semi-transparent for readability */
 .intro-box {
   background: rgba(255, 255, 255, 0.82) !important;
   padding: 1.25rem;
@@ -43,7 +43,7 @@ main,
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
 }
 
-/*Cards and product cards stay white for legibility*/
+/* Cards and product cards stay white for legibility */
 .card,
 .product-card,
 #leftSidebar .card {
@@ -52,18 +52,18 @@ main,
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06) !important;
 }
 
-/*Offcanvas should be readable*/
+/* Offcanvas should be readable */
 .offcanvas {
   background: rgba(255, 255, 255, 0.95) !important;
 }
 
-/*Footer translucent*/
+/* Footer translucent */
 footer {
   background: rgba(255, 255, 255, 0.9) !important;
   border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-/*Other UI tweaks*/
+/* Other UI tweaks */
 .product-card img {
   height: 220px;
   object-fit: cover;
@@ -82,14 +82,14 @@ footer {
   cursor: pointer;
 }
 
-/*Responsive hero padding*/
+/* Responsive hero padding */
 @media (min-width: 992px) {
   .hero {
     padding: 6rem 0;
   }
 }
 
-/*Navbar orizzontale già da 700px*/
+/* ✅ Navbar orizzontale già da 700px (come desktop) */
 @media (min-width: 700px) {
   .navbar-expand-lg .navbar-collapse {
     display: flex !important;

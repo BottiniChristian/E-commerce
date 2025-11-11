@@ -3,20 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ShopEasy — Prodotti</title>
-  <link rel="icon" type="image/jpg" href="imgs/shopping-bag-icona-in-stile-appartamento-simbolo-di-pacchetto-isolato-su-sfondo-bianco-icona-del-pacchetto-semplice-icona-astratta-in-nero-shopping-bag-il-segno-il-vettore-mk3gy5.jpg">
+  <title>ShopEasy — Home</title>
+
+  <!--Bootstrap + Icons-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!--NAVBAR-->
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
       <div class="d-flex align-items-center gap-2">
-        <!-- icona che apre l'offcanvas categories (resta) -->
-        <button id="catToggleBtn" class="btn btn-outline-primary p-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCategories" aria-controls="offcanvasCategories" title="Categorie" style="width:40px;height:40px">
+        <button id="catToggleBtn" class="btn btn-outline-primary p-1" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCategories" aria-controls="offcanvasCategories" title="Categorie"
+                style="width:40px;height:40px">
           <i class="bi bi-list"></i>
         </button>
         <a class="navbar-brand fw-bold mb-0 ms-1 text-dark" href="index.html">ShopEasy</a>
@@ -41,13 +43,46 @@
     </div>
   </nav>
 
-  <!-- MAIN: layout pulito senza sidebar -->
+  <!--HERO-->
+  <header class="hero text-white d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <h1 class="display-5 fw-bold">Prodotti di qualità, per ogni giorno</h1>
+          <p class="lead text-white-50">Accessori, magliette, cappelli e molto altro. Design responsivo e attenzione ai materiali.</p>
+        </div>
+        <div class="col-lg-5 text-center d-none d-lg-block">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!--MAIN-->
   <main class="container my-5">
-    <h2 class="fw-bold mb-4">Tutti i prodotti</h2>
-    <div id="productGrid" class="row g-3"></div>
+    <div class="row">
+      <div class="col-12">
+        <!--intro-box semitrasparente-->
+        <section id="intro" class="mb-4 intro-box">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h3>Chi siamo</h3>
+              <p class="mb-0 text-muted">Creiamo prodotti pensati per il quotidiano: qualità, funzionalità e stile. Questa è una demo front-end pronta per essere estesa con un back-end in futuro.</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <img src="https://images.unsplash.com/photo-1520975912525-7b4ff9f2b8b7?q=80&w=800&auto=format&fit=crop" alt="about" class="img-fluid rounded" style="max-height:100px;object-fit:cover">
+            </div>
+          </div>
+        </section>
+
+        <section id="featured" class="mb-5">
+          <h4 class="mb-3">Prodotti in evidenza</h4>
+          <div id="featuredGrid" class="row g-3"></div>
+        </section>
+      </div>
+    </div>
   </main>
 
-  <!-- Offcanvas categories (mobile / menu) - mantiene la funzionalità di filtro -->
+  <!--OFFCANVAS: Categories-->
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCategories" aria-labelledby="offcanvasCategoriesLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasCategoriesLabel">Categorie</h5>
@@ -58,7 +93,7 @@
     </div>
   </div>
 
-  <!-- Offcanvas cart -->
+  <!--OFFCANVAS: Cart-->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title">Carrello</h5>
@@ -76,7 +111,7 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!--FOOTER-->
   <footer class="border-top py-4 mt-5">
     <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
       <small class="text-muted">© <span id="year"></span> ShopEasy</small>
