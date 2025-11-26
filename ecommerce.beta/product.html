@@ -30,8 +30,8 @@
       <div class="collapse navbar-collapse" id="navbarsMain">
         <ul class="navbar-nav ms-auto me-3">
           <li class="nav-item"><a id="nav-home" class="nav-link text-dark" href="index.html">Home</a></li>
-          <li class="nav-item"><a id="nav-shop" class="nav-link text-dark" href="prodotti.html">Prodotti</a></li>
-          <li class="nav-item"><a id="nav-about" class="nav-link text-dark" href="chi-siamo.html">Chi siamo</a></li>
+          <li class="nav-item"><a id="nav-shop" class="nav-link text-dark" href="prodotti.html">Products</a></li>
+          <li class="nav-item"><a id="nav-about" class="nav-link text-dark" href="chi-siamo.html">About Us</a></li>
         </ul>
 
         <button class="btn btn-outline-primary position-relative" id="cartButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
@@ -55,7 +55,7 @@
   <!-- Offcanvas categories & cart -->
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCategories" aria-labelledby="offcanvasCategoriesLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasCategoriesLabel">Categorie</h5>
+      <h5 class="offcanvas-title" id="offcanvasCategoriesLabel">Categories</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
@@ -65,17 +65,17 @@
 
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title">Carrello</h5>
+      <h5 class="offcanvas-title">Cart</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column">
       <ul id="cartList" class="list-group list-group-flush mb-3 small"></ul>
       <div class="mt-auto">
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="fw-semibold">Subtotale</span>
+          <span class="fw-semibold">Subtotal</span>
           <span id="cartSubtotal" class="fs-5 fw-bold">€0,00</span>
         </div>
-        <button class="btn btn-dark w-100" id="checkoutBtn" disabled>Procedi al checkout</button>
+        <button class="btn btn-dark w-100" id="checkoutBtn" disabled>Proceed to Checkout</button>
       </div>
     </div>
   </div>
@@ -89,6 +89,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script defer src="app.js"></script>
+  <script type="module" src="js/app.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+</head>
+<body>
+
+  <h2>Area Riservata Admin</h2>
+
+  <input type="password" id="adminPassword" placeholder="Password admin">
+  <button id="loginBtn">Accedi</button>
+
+  <script>
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const password = document.getElementById("adminPassword").value;
+
+      if (!password) {
+        alert("Inserisci la password");
+        return;
+      }
+
+      const req = await fetch("http://localhost:3000/api/admin/login?password=" + password, {
+        method: "POST"
+      });
+
+      const data = await req.json();
+
+      if (data.success === "true") {
+        localStorage.setItem("admin_token", data.token);
+        window.location.href = "admin.html";
+      } else {
+        alert("Password errata!");
+      }
+    });
+  </script>
+
+</body>
+</html>
+

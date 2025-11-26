@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Ordini</title>
+</head>
+<body>
+
+  <h2>Ordini Ricevuti</h2>
+  <div id="orders"></div>
+
+  <script>
+    async function checkLogin() {
+      const token = localStorage.getItem("admin_token");
+
+      if (!token) {
+        window.location.href = "admin-login.html";
+        return;
+      }
+
+      const res = await fetch("http://localhost:3000/api/admin/check-session?token=" + token);
+      const data = await res.json();
+
+      if (data.valid !== "true") {
+        localStorage.removeItem("admin_token");
+        window.location.href = "admin-login.html";
+      } else {
+        loadOrders(token);
+      }
+    }
+
+    async function loadOrders(token) {
+      const res = await fetch("http://localhost:3000/api/admin/orders?token=" + token);
+      const orders = await res.json();
+
+      const container = document.getElementById("orders");
+      container.innerHTML = "<pre>" + JSON.stringify(orders, null, 2) + "</pre>";
+    }
+
+    checkLogin();
+  </script>
+
+</body>
+</html>

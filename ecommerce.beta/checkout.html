@@ -30,8 +30,8 @@
       <div class="collapse navbar-collapse" id="navbarsMain">
         <ul class="navbar-nav ms-auto me-3">
           <li class="nav-item"><a id="nav-home" class="nav-link text-dark" href="index.html">Home</a></li>
-          <li class="nav-item"><a id="nav-shop" class="nav-link text-dark" href="prodotti.html">Prodotti</a></li>
-          <li class="nav-item"><a id="nav-about" class="nav-link text-dark" href="chi-siamo.html">Chi siamo</a></li>
+          <li class="nav-item"><a id="nav-shop" class="nav-link text-dark" href="prodotti.html">Products</a></li>
+          <li class="nav-item"><a id="nav-about" class="nav-link text-dark" href="chi-siamo.html">About Us</a></li>
         </ul>
 
         <button class="btn btn-outline-primary position-relative" id="cartButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
@@ -46,60 +46,56 @@
   <main class="container my-5">
     <div class="row g-4">
       <section class="col-lg-7">
-        <h3>Dettagli di spedizione</h3>
+        <h3>Shipping Details</h3>
         <form id="checkoutForm" novalidate>
           <div class="row g-3">
             <div class="col-12 col-md-6">
-              <label class="form-label">Nome completo</label>
+              <label class="form-label">Full Name</label>
               <input type="text" id="shipName" class="form-control" required>
-              <div class="invalid-feedback">Inserisci il tuo nome.</div>
+              <div class="invalid-feedback">Please enter your name.</div>
             </div>
 
             <div class="col-12 col-md-6">
               <label class="form-label">Email</label>
               <input type="email" id="shipEmail" class="form-control" required>
-              <div class="invalid-feedback">Inserisci una email valida.</div>
+              <div class="invalid-feedback">Please enter a valid email.</div>
             </div>
 
             <div class="col-12">
-              <label class="form-label">Indirizzo (via, civico)</label>
+              <label class="form-label">Address (Street, Number)</label>
               <input type="text" id="shipAddress" class="form-control" required>
-              <div class="invalid-feedback">Inserisci l'indirizzo di consegna.</div>
+              <div class="invalid-feedback">Please enter your shipping address.</div>
             </div>
 
             <div class="col-6 col-md-4">
-              <label class="form-label">CAP</label>
+              <label class="form-label">ZIP Code</label>
               <input type="text" id="shipZip" class="form-control" required pattern="\\d{4,10}">
-              <div class="invalid-feedback">Inserisci un CAP valido.</div>
+              <div class="invalid-feedback">Please enter a valid ZIP code.</div>
             </div>
 
             <div class="col-6 col-md-4">
-              <label class="form-label">Città</label>
+              <label class="form-label">City</label>
               <input type="text" id="shipCity" class="form-control" required>
-              <div class="invalid-feedback">Inserisci la città.</div>
+              <div class="invalid-feedback">Please enter your city.</div>
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label">Nazione</label>
-              <input type="text" id="shipCountry" class="form-control" required value="Italia">
-              <div class="invalid-feedback">Inserisci la nazione.</div>
+              <label class="form-label">Country</label>
+              <input type="text" id="shipCountry" class="form-control" required>
+              <div class="invalid-feedback">Please enter your country.</div>
             </div>
 
             <div class="col-12 col-md-6">
-              <label class="form-label">Telefono</label>
+              <label class="form-label">Phone</label>
               <input type="tel" id="shipPhone" class="form-control" required>
-              <div class="invalid-feedback">Inserisci un numero di telefono.</div>
+              <div class="invalid-feedback">Please enter a phone number.</div>
             </div>
 
             <div class="col-12 mt-3">
-              <h5>Metodo di pagamento</h5>
+              <h5>Payment Method</h5>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="payMethod" id="payCard" value="card" checked>
-                <label class="form-check-label" for="payCard">Carta di credito / debito (simulato)</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="payMethod" id="payCod" value="cod">
-                <label class="form-check-label" for="payCod">Contrassegno (pagamento alla consegna)</label>
+                <label class="form-check-label" for="payCard">Credit / Debit Card</label>
               </div>
             </div>
 
@@ -107,40 +103,39 @@
             <div id="cardSection" class="col-12 mt-2">
               <div class="row g-2">
                 <div class="col-12 col-md-6">
-                  <label class="form-label">Numero carta</label>
+                  <label class="form-label">Card Number</label>
                   <input id="cardNumber" class="form-control" placeholder="4242 4242 4242 4242" pattern="\\d{12,19}">
                 </div>
                 <div class="col-6 col-md-3">
-                  <label class="form-label">MM/AA</label>
-                  <input id="cardExp" class="form-control" placeholder="MM/AA" pattern="\\d{2}/\\d{2}">
+                  <label class="form-label">MM/YY</label>
+                  <input id="cardExp" class="form-control" placeholder="MM/YY" pattern="\\d{2}/\\d{2}">
                 </div>
                 <div class="col-6 col-md-3">
                   <label class="form-label">CVC</label>
                   <input id="cardCvc" class="form-control" placeholder="CVC" pattern="\\d{3,4}">
                 </div>
               </div>
-              <div class="form-text mt-1 text-muted">Questa è una demo — i dati non vengono inviati a nessun gateway.</div>
             </div>
 
             <div class="col-12 mt-3">
               <div class="form-check">
                 <input id="saveInfo" class="form-check-input" type="checkbox">
-                <label class="form-check-label" for="saveInfo">Salva i dettagli per ordini futuri (localStorage)</label>
+                <label class="form-check-label" for="saveInfo">Save details for future orders</label><!--Salva i dettagli per ordini futuri (localStorage)-->
               </div>
             </div>
 
             <div class="col-12 mt-4">
-              <button id="placeOrder" type="submit" class="btn btn-primary btn-lg w-100">Conferma e paga</button>
+              <button id="placeOrder" type="submit" class="btn btn-primary btn-lg w-100">Confirm and Pay</button>
             </div>
           </div>
         </form>
       </section>
 
       <aside class="col-lg-5">
-        <h4>Riepilogo ordine</h4>
+        <h4>Order Summary</h4>
         <div id="checkoutSummary" class="card p-3">
           <!--renderato da JS-->
-          <div class="text-center text-muted py-4">Caricamento riepilogo...</div>
+          <div class="text-center text-muted py-4">Loading summary...</div>
         </div>
       </aside>
     </div>
@@ -149,7 +144,7 @@
   <!--Offcanvas categories & cart-->
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCategories" aria-labelledby="offcanvasCategoriesLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasCategoriesLabel">Categorie</h5>
+      <h5 class="offcanvas-title" id="offcanvasCategoriesLabel">Categories</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
@@ -159,17 +154,17 @@
 
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title">Carrello</h5>
+      <h5 class="offcanvas-title">Cart</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column">
       <ul id="cartList" class="list-group list-group-flush mb-3 small"></ul>
       <div class="mt-auto">
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="fw-semibold">Subtotale</span>
+          <span class="fw-semibold">Subtotal</span>
           <span id="cartSubtotal" class="fs-5 fw-bold">€0,00</span>
         </div>
-        <button class="btn btn-dark w-100" id="checkoutBtnFromOffcanvas">Vai al checkout</button>
+        <button class="btn btn-dark w-100" id="checkoutBtnFromOffcanvas">Proceed to Checkout</button>
       </div>
     </div>
   </div>
@@ -183,6 +178,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script defer src="app.js"></script>
+  <script type="module" src="js/app.js"></script>
+
 </body>
 </html>
