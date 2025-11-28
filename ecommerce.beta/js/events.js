@@ -100,15 +100,15 @@ export function initEvents() {
       const btn = document.getElementById("placeOrder");
       if (btn) {
         btn.disabled = true;
-        btn.textContent = "Reindirizzamento...";
+        btn.textContent = "Redirecting...";
       }
 
       try {
-        const res = await fetch("http://localhost:3000/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
+      const res = await fetch("http://localhost:8080/api/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+    });
 
         const resp = await res.text();  // il backend ritorna direttamente la URL
 
@@ -116,18 +116,18 @@ export function initEvents() {
           // Redirect a Stripe Checkout
           window.location.href = resp;
         } else {
-          alert("Errore durante la creazione del pagamento.");
+          alert("Error creating payment.");
           console.error(resp);
         }
 
       } catch (err) {
         console.error(err);
-        alert("Errore di connessione al server backend.");
+        alert("Error connecting to backend server.");
       }
 
       if (btn) {
         btn.disabled = false;
-        btn.textContent = "Conferma e paga";
+        btn.textContent = "Confirm and pay";
       }
     }
   });
